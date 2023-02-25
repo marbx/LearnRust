@@ -1,7 +1,13 @@
 // Is binary_search() faster than contains() for 35 words?
 // binary_search requires a ramp up, so there will be a break-even number of words, when this ramp up is worthwile.
 
-// COLLECTED RUN TIMES
+// COLLECTED RUN TIMES -- Renaming the functions changes the result!
+//   test tests::bench_35_words_binary_search ... bench:          25 ns/iter (+/- 0)
+//   test tests::bench_35_words_contains      ... bench:          25 ns/iter (+/- 0)
+//   test tests::bench_85_words_binary_search ... bench:          33 ns/iter (+/- 1)
+//   test tests::bench_85_words_contains      ... bench:          63 ns/iter (+/- 1)
+//   test tests::bench_xor                    ... bench:          92 ns/iter (+/- 3)
+//   -----------------
 //   test tests::bench_binary_search_with_35_words ... bench:          25 ns/iter (+/- 0)
 //   test tests::bench_binary_search_with_85_words ... bench:          33 ns/iter (+/- 1)
 //   test tests::bench_contains_with_35_word       ... bench:          21 ns/iter (+/- 0)
@@ -44,7 +50,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_contains_with_35_word(b: &mut Bencher) {
+    fn bench_35_words_contains(b: &mut Bencher) {
         let choices = [
             "Makefile", "Cargo.toml", "SConstruct", "CMakeLists.txt",
             "build.gradle", "pom.xml", "Rakefile", "package.json", "Gruntfile.js",
@@ -63,7 +69,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_binary_search_with_35_words(b: &mut Bencher) {
+    fn bench_35_words_binary_search(b: &mut Bencher) {
         let choices = [
             "BUILD",
             "BUILD.bazel",
@@ -114,7 +120,7 @@ mod tests {
 
     // thanks to https://randomwordgenerator.com/
     #[bench]
-    fn bench_contains_with_85_words(b: &mut Bencher) {
+    fn bench_85_words_contains(b: &mut Bencher) {
         let choices = [
             "Makefile", "Cargo.toml", "SConstruct", "CMakeLists.txt",
             "build.gradle", "pom.xml", "Rakefile", "package.json", "Gruntfile.js",
@@ -139,7 +145,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_binary_search_with_85_words(b: &mut Bencher) {
+    fn bench_85_words_binary_search(b: &mut Bencher) {
         let choices = [
             "BUILD",
             "BUILD.bazel",
