@@ -19,6 +19,8 @@
 //   binary_search is faster for 85 words
 //   The break-even point must be between 35 and 85 points
 
+// TEST PROCEDURE
+//    Test 4 times for a word absent from the list, 1 times for a word present in the list.
 
 // THIS REGARDS
 //   https://github.com/ogham/exa/pull/1146
@@ -182,10 +184,11 @@ mod tests {
     #[bench]
     fn bench_35_words_contains(b: &mut Bencher) {
         b.iter(|| {
-            let no = &CHOICES35.contains(&"foo");
-            let yes = &CHOICES35.contains(&"tsconfig.json");
-            assert!(! no);
-            assert!(yes);
+            let no =  &CHOICES35.contains(&"foo1"); assert!(! no);
+            let no =  &CHOICES35.contains(&"foo2"); assert!(! no);
+            let no =  &CHOICES35.contains(&"foo3"); assert!(! no);
+            let no =  &CHOICES35.contains(&"foo4"); assert!(! no);
+            let yes = &CHOICES35.contains(&"tsconfig.json"); assert!(yes);
         })
     }
 
@@ -193,10 +196,11 @@ mod tests {
     #[bench]
     fn bench_35_words_binary_search(b: &mut Bencher) {
         b.iter(|| {
-            let no = &CHOICES35.binary_search(&"foo").is_ok();
-            let yes = &CHOICES35.binary_search(&"tsconfig.json").is_ok();
-            assert!(! no);
-            assert!(yes);
+            let no =  &CHOICES35.binary_search(&"foo1").is_ok(); assert!(! no);
+            let no =  &CHOICES35.binary_search(&"foo2").is_ok(); assert!(! no);
+            let no =  &CHOICES35.binary_search(&"foo3").is_ok(); assert!(! no);
+            let no =  &CHOICES35.binary_search(&"foo4").is_ok(); assert!(! no);
+            let yes = &CHOICES35.binary_search(&"tsconfig.json").is_ok(); assert!(yes);
         })
     }
 
@@ -205,10 +209,11 @@ mod tests {
     fn bench_85_words_contains(b: &mut Bencher) {
 
         b.iter(|| {
-            let no = &CHOICES85.contains(&"foo");
-            let yes = &CHOICES85.contains(&"function");
-            assert!(! no);
-            assert!(yes);
+            let no =  &CHOICES85.contains(&"foo1"); assert!(! no);
+            let no =  &CHOICES85.contains(&"foo2"); assert!(! no);
+            let no =  &CHOICES85.contains(&"foo3"); assert!(! no);
+            let no =  &CHOICES85.contains(&"foo4"); assert!(! no);
+            let yes = &CHOICES85.contains(&"tsconfig.json"); assert!(yes);
         })
     }
 
@@ -216,10 +221,11 @@ mod tests {
     #[bench]
     fn bench_85_words_binary_search(b: &mut Bencher) {
         b.iter(|| {
-            let no = &CHOICES85.binary_search(&"foo").is_ok();
-            let yes = &CHOICES85.binary_search(&"tsconfig.json").is_ok();
-            assert!(! no);
-            assert!(yes);
+            let no =  &CHOICES85.binary_search(&"foo1").is_ok(); assert!(! no);
+            let no =  &CHOICES85.binary_search(&"foo2").is_ok(); assert!(! no);
+            let no =  &CHOICES85.binary_search(&"foo3").is_ok(); assert!(! no);
+            let no =  &CHOICES85.binary_search(&"foo4").is_ok(); assert!(! no);
+            let yes = &CHOICES85.binary_search(&"tsconfig.json").is_ok(); assert!(yes);
         })
     }
 
