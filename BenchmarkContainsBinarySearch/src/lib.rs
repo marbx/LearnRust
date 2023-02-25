@@ -1,7 +1,14 @@
 // Is binary_search() faster than contains() for 35 words?
 // binary_search requires a ramp up, so there will be a break-even number of words, when this ramp up is worthwile.
 
-// COLLECTED RUN TIMES -- Renaming the functions changes the result!
+// COLLECTED RUN TIMES
+//   test tests::bench_35_words_binary_search ... bench:          72 ns/iter (+/- 1)
+//   test tests::bench_35_words_contains      ... bench:          78 ns/iter (+/- 8)
+//   test tests::bench_85_words_binary_search ... bench:          99 ns/iter (+/- 2)
+//   test tests::bench_85_words_contains      ... bench:         138 ns/iter (+/- 1)
+//   test tests::bench_xor                    ... bench:          92 ns/iter (+/- 2)
+
+// Renaming the functions changes the result!
 //   test tests::bench_35_words_binary_search ... bench:          25 ns/iter (+/- 0)
 //   test tests::bench_35_words_contains      ... bench:          25 ns/iter (+/- 0)
 //   test tests::bench_85_words_binary_search ... bench:          33 ns/iter (+/- 1)
