@@ -49,198 +49,178 @@ mod tests {
         })
     }
 
-    #[bench]
-    fn bench_35_words_contains(b: &mut Bencher) {
-        let choices = [
-            "Makefile", "Cargo.toml", "SConstruct", "CMakeLists.txt",
-            "build.gradle", "pom.xml", "Rakefile", "package.json", "Gruntfile.js",
-            "Gruntfile.coffee", "BUILD", "BUILD.bazel", "WORKSPACE", "build.xml", "Podfile",
-            "webpack.config.js", "meson.build", "composer.json", "RoboFile.php", "PKGBUILD",
-            "Justfile", "Procfile", "Dockerfile", "Containerfile", "Vagrantfile", "Brewfile",
-            "Gemfile", "Pipfile", "build.sbt", "mix.exs", "bsconfig.json", "tsconfig.json"
-        ];
-
-        b.iter(|| {
-            let no = &choices.contains(&"foo");
-            let yes = &choices.contains(&"tsconfig.json");
-            assert!(! no);
-            assert!(yes);
-        })
-    }
-
-    #[bench]
-    fn bench_35_words_binary_search(b: &mut Bencher) {
-        let choices = [
-            "BUILD",
-            "BUILD.bazel",
-            "Brewfile",
-            "CMakeLists.txt",
-            "Cargo.toml",
-            "Containerfile",
-            "Dockerfile",
-            "GNUmakefile",
-            "Gemfile",
-            "Gruntfile.coffee",
-            "Gruntfile.js",
-            "Justfile",
-            "Makefile",
-            "PKGBUILD",
-            "Pipfile",
-            "Podfile",
-            "Procfile",
-            "Rakefile",
-            "RoboFile.php",
-            "SConstruct",
-            "Vagrantfile",
-            "WORKSPACE",
-            "bsconfig.json",
-            "build.gradle",
-            "build.sbt",
-            "build.xml",
-            "composer.json",
-            "makefile",
-            "meson.build",
-            "mix.exs",
-            "package.json",
-            "pom.xml",
-            "tsconfig.json",
-            "webpack.config.js",
-        ];
-
-        b.iter(|| {
-            let no = &choices.binary_search(&"foo").is_ok();
-            let yes = &choices.binary_search(&"tsconfig.json").is_ok();
-            assert!(! no);
-            assert!(yes);
-        })
-    }
 
 
+    const CHOICES35 : [&str; 34] = [
+        "BUILD",
+        "BUILD.bazel",
+        "Brewfile",
+        "CMakeLists.txt",
+        "Cargo.toml",
+        "Containerfile",
+        "Dockerfile",
+        "GNUmakefile",
+        "Gemfile",
+        "Gruntfile.coffee",
+        "Gruntfile.js",
+        "Justfile",
+        "Makefile",
+        "PKGBUILD",
+        "Pipfile",
+        "Podfile",
+        "Procfile",
+        "Rakefile",
+        "RoboFile.php",
+        "SConstruct",
+        "Vagrantfile",
+        "WORKSPACE",
+        "bsconfig.json",
+        "build.gradle",
+        "build.sbt",
+        "build.xml",
+        "composer.json",
+        "makefile",
+        "meson.build",
+        "mix.exs",
+        "package.json",
+        "pom.xml",
+        "tsconfig.json",
+        "webpack.config.js",
+    ];
 
 
     // thanks to https://randomwordgenerator.com/
-    #[bench]
-    fn bench_85_words_contains(b: &mut Bencher) {
-        let choices = [
-            "Makefile", "Cargo.toml", "SConstruct", "CMakeLists.txt",
-            "build.gradle", "pom.xml", "Rakefile", "package.json", "Gruntfile.js",
-            "Gruntfile.coffee", "BUILD", "BUILD.bazel", "WORKSPACE", "build.xml", "Podfile",
-            "webpack.config.js", "meson.build", "composer.json", "RoboFile.php", "PKGBUILD",
-            "Justfile", "Procfile", "Dockerfile", "Containerfile", "Vagrantfile", "Brewfile",
-            "Gemfile", "Pipfile", "build.sbt", "mix.exs", "bsconfig.json", "tsconfig.json",
-            "spot","accept","reality","march","fault","spy","pull","parade","restaurant",
-            "redundancy","criticism","produce","recession","equip","marketing","stick","confront",
-            "clarify","consciousness","talkative","whole","federation","goalkeeper","shorts","white","command",
-            "drain","linear","invite","feminine","dedicate","accident","overall","trend","section","camp",
-            "unanimous","disaster","noise","house","shine","owl","conversation","tidy","undermine","junior",
-            "ton","pest","feed","function"
-        ];
+    const CHOICES85 : [&str; 84] = [
+        "BUILD",
+        "BUILD.bazel",
+        "Brewfile",
+        "CMakeLists.txt",
+        "Cargo.toml",
+        "Containerfile",
+        "Dockerfile",
+        "GNUmakefile",
+        "Gemfile",
+        "Gruntfile.coffee",
+        "Gruntfile.js",
+        "Justfile",
+        "Makefile",
+        "PKGBUILD",
+        "Pipfile",
+        "Podfile",
+        "Procfile",
+        "Rakefile",
+        "RoboFile.php",
+        "SConstruct",
+        "Vagrantfile",
+        "WORKSPACE",
+        "accident",
+        "bsconfig.json",
+        "build.gradle",
+        "build.sbt",
+        "build.xml",
+        "camp",
+        "clarify",
+        "command",
+        "composer.json",
+        "confront",
+        "consciousness",
+        "conversation",
+        "criticism",
+        "dedicate",
+        "disaster",
+        "drain",
+        "equip",
+        "fault",
+        "federation",
+        "feed",
+        "feminine",
+        "function",
+        "goalkeeper",
+        "house",
+        "invite",
+        "junior",
+        "linear",
+        "makefile",
+        "march",
+        "marketing",
+        "meson.build",
+        "mix.exs",
+        "noise",
+        "overall",
+        "owl",
+        "package.json",
+        "parade",
+        "pest",
+        "pom.xml",
+        "produce",
+        "pull",
+        "reality",
+        "recession",
+        "redundancy",
+        "restaurant",
+        "section",
+        "shine",
+        "shorts",
+        "spot",
+        "spy",
+        "stick",
+        "talkative",
+        "tidy",
+        "ton",
+        "trend",
+        "tsconfig.json",
+        "unanimous",
+        "undermine",
+        "webpack.config.js",
+        "white",
+        "whole",
+        "accept",
+    ];
 
+
+
+    #[bench]
+    fn bench_35_words_contains(b: &mut Bencher) {
         b.iter(|| {
-            let no = &choices.contains(&"foo");
-            let yes = &choices.contains(&"function");
+            let no = &CHOICES35.contains(&"foo");
+            let yes = &CHOICES35.contains(&"tsconfig.json");
             assert!(! no);
             assert!(yes);
         })
     }
+
+
+    #[bench]
+    fn bench_35_words_binary_search(b: &mut Bencher) {
+        b.iter(|| {
+            let no = &CHOICES35.binary_search(&"foo").is_ok();
+            let yes = &CHOICES35.binary_search(&"tsconfig.json").is_ok();
+            assert!(! no);
+            assert!(yes);
+        })
+    }
+
+
+    #[bench]
+    fn bench_85_words_contains(b: &mut Bencher) {
+
+        b.iter(|| {
+            let no = &CHOICES85.contains(&"foo");
+            let yes = &CHOICES85.contains(&"function");
+            assert!(! no);
+            assert!(yes);
+        })
+    }
+
 
     #[bench]
     fn bench_85_words_binary_search(b: &mut Bencher) {
-        let choices = [
-            "BUILD",
-            "BUILD.bazel",
-            "Brewfile",
-            "CMakeLists.txt",
-            "Cargo.toml",
-            "Containerfile",
-            "Dockerfile",
-            "GNUmakefile",
-            "Gemfile",
-            "Gruntfile.coffee",
-            "Gruntfile.js",
-            "Justfile",
-            "Makefile",
-            "PKGBUILD",
-            "Pipfile",
-            "Podfile",
-            "Procfile",
-            "Rakefile",
-            "RoboFile.php",
-            "SConstruct",
-            "Vagrantfile",
-            "WORKSPACE",
-            "accident",
-            "bsconfig.json",
-            "build.gradle",
-            "build.sbt",
-            "build.xml",
-            "camp",
-            "clarify",
-            "command",
-            "composer.json",
-            "confront",
-            "consciousness",
-            "conversation",
-            "criticism",
-            "dedicate",
-            "disaster",
-            "drain",
-            "equip",
-            "fault",
-            "federation",
-            "feed",
-            "feminine",
-            "function",
-            "goalkeeper",
-            "house",
-            "invite",
-            "junior",
-            "linear",
-            "makefile",
-            "march",
-            "marketing",
-            "meson.build",
-            "mix.exs",
-            "noise",
-            "overall",
-            "owl",
-            "package.json",
-            "parade",
-            "pest",
-            "pom.xml",
-            "produce",
-            "pull",
-            "reality",
-            "recession",
-            "redundancy",
-            "restaurant",
-            "section",
-            "shine",
-            "shorts",
-            "spot",
-            "spy",
-            "stick",
-            "talkative",
-            "tidy",
-            "ton",
-            "trend",
-            "tsconfig.json",
-            "unanimous",
-            "undermine",
-            "webpack.config.js",
-            "white",
-            "whole",
-            "accept",
-            ];
-
         b.iter(|| {
-            let no = &choices.binary_search(&"foo").is_ok();
-            let yes = &choices.binary_search(&"tsconfig.json").is_ok();
+            let no = &CHOICES85.binary_search(&"foo").is_ok();
+            let yes = &CHOICES85.binary_search(&"tsconfig.json").is_ok();
             assert!(! no);
             assert!(yes);
         })
     }
-
-
 
 }
