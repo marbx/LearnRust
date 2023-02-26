@@ -2,21 +2,23 @@
 // binary_search requires a ramp up, so there will be a break-even number of words, when this ramp up is worthwile.
 
 // COLLECTED RUN TIMES
-//   test tests::bench_35_words_binary_search         ... bench:          73 ns/iter (+/- 3)
-//   test tests::bench_35_words_contains              ... bench:          94 ns/iter (+/- 10)
-//   test tests::bench_35_words_hashmap_local_mutable ... bench:          60 ns/iter (+/- 3)
-//   test tests::bench_35_words_hashmap_static_phf    ... bench:          70 ns/iter (+/- 2)
-//   test tests::bench_35_words_lazy_hashset_1        ... bench:          60 ns/iter (+/- 4)
-//   test tests::bench_35_words_lazy_hashset_2        ... bench:          60 ns/iter (+/- 1)
-//   test tests::bench_35_words_static_phf_set        ... bench:          70 ns/iter (+/- 3)
-//   test tests::bench_85_words_binary_search         ... bench:          99 ns/iter (+/- 3)
-//   test tests::bench_85_words_contains              ... bench:         138 ns/iter (+/- 4)
-//   test tests::bench_85_words_hashmap_local_mutable ... bench:          58 ns/iter (+/- 3)
-//   test tests::bench_85_words_hashmap_static_phf    ... bench:          70 ns/iter (+/- 1)
-//   test tests::bench_85_words_lazy_hashset_1        ... bench:          59 ns/iter (+/- 2)
-//   test tests::bench_85_words_lazy_hashset_2        ... bench:          59 ns/iter (+/- 3)
-//   test tests::bench_85_words_static_phf_set        ... bench:          70 ns/iter (+/- 2)
-//   test tests::bench_xor                            ... bench:          91 ns/iter (+/- 0)
+//   test tests::bench_35_words_binary_search         ... bench:          73 ns/iter (+/- 2)
+//   test tests::bench_35_words_contains              ... bench:          78 ns/iter (+/- 2)
+//   test tests::bench_35_words_hashmap_local_mutable ... bench:          58 ns/iter (+/- 1)
+//   test tests::bench_35_words_hashmap_static_phf    ... bench:          70 ns/iter (+/- 4)
+//   test tests::bench_35_words_lazy_hashset_1        ... bench:          59 ns/iter (+/- 4)
+//   test tests::bench_35_words_lazy_hashset_2        ... bench:          59 ns/iter (+/- 2)
+//   test tests::bench_35_words_match                 ... bench:           0 ns/iter (+/- 0)
+//   test tests::bench_35_words_static_phf_set        ... bench:          70 ns/iter (+/- 2)
+//   test tests::bench_85_words_binary_search         ... bench:          99 ns/iter (+/- 2)
+//   test tests::bench_85_words_contains              ... bench:         230 ns/iter (+/- 17)
+//   test tests::bench_85_words_hashmap_local_mutable ... bench:          59 ns/iter (+/- 1)
+//   test tests::bench_85_words_hashmap_static_phf    ... bench:          69 ns/iter (+/- 2)
+//   test tests::bench_85_words_lazy_hashset_1        ... bench:          60 ns/iter (+/- 1)
+//   test tests::bench_85_words_lazy_hashset_2        ... bench:          60 ns/iter (+/- 1)
+//   test tests::bench_85_words_match                 ... bench:         121 ns/iter (+/- 5)
+//   test tests::bench_85_words_static_phf_set        ... bench:          70 ns/iter (+/- 3)
+//   test tests::bench_xor                            ... bench:          92 ns/iter (+/- 1)
 
 
 // Renaming the functions changes the result!
@@ -465,6 +467,161 @@ mod tests {
         "accept",
     ];
 
+
+    fn using_match_for_lookup_35(word: &str) -> bool {
+        match word {
+            "BUILD" => true,
+            "BUILD.bazel" => true,
+            "Brewfile" => true,
+            "CMakeLists.txt" => true,
+            "Cargo.toml" => true,
+            "Containerfile" => true,
+            "Dockerfile" => true,
+            "GNUmakefile" => true,
+            "Gemfile" => true,
+            "Gruntfile.coffee" => true,
+            "Gruntfile.js" => true,
+            "Justfile" => true,
+            "Makefile" => true,
+            "PKGBUILD" => true,
+            "Pipfile" => true,
+            "Podfile" => true,
+            "Procfile" => true,
+            "Rakefile" => true,
+            "RoboFile.php" => true,
+            "SConstruct" => true,
+            "Vagrantfile" => true,
+            "WORKSPACE" => true,
+            "bsconfig.json" => true,
+            "build.gradle" => true,
+            "build.sbt" => true,
+            "build.xml" => true,
+            "composer.json" => true,
+            "makefile" => true,
+            "meson.build" => true,
+            "mix.exs" => true,
+            "package.json" => true,
+            "pom.xml" => true,
+            "tsconfig.json" => true,
+            "webpack.config.js" => true,
+            _   => false,
+        }
+    }
+
+    fn using_match_for_lookup_85(word: &str) -> bool {
+        match word {
+        "BUILD" => true,
+        "BUILD.bazel" => true,
+        "Brewfile" => true,
+        "CMakeLists.txt" => true,
+        "Cargo.toml" => true,
+        "Containerfile" => true,
+        "Dockerfile" => true,
+        "GNUmakefile" => true,
+        "Gemfile" => true,
+        "Gruntfile.coffee" => true,
+        "Gruntfile.js" => true,
+        "Justfile" => true,
+        "Makefile" => true,
+        "PKGBUILD" => true,
+        "Pipfile" => true,
+        "Podfile" => true,
+        "Procfile" => true,
+        "Rakefile" => true,
+        "RoboFile.php" => true,
+        "SConstruct" => true,
+        "Vagrantfile" => true,
+        "WORKSPACE" => true,
+        "accident" => true,
+        "bsconfig.json" => true,
+        "build.gradle" => true,
+        "build.sbt" => true,
+        "build.xml" => true,
+        "camp" => true,
+        "clarify" => true,
+        "command" => true,
+        "composer.json" => true,
+        "confront" => true,
+        "consciousness" => true,
+        "conversation" => true,
+        "criticism" => true,
+        "dedicate" => true,
+        "disaster" => true,
+        "drain" => true,
+        "equip" => true,
+        "fault" => true,
+        "federation" => true,
+        "feed" => true,
+        "feminine" => true,
+        "function" => true,
+        "goalkeeper" => true,
+        "house" => true,
+        "invite" => true,
+        "junior" => true,
+        "linear" => true,
+        "makefile" => true,
+        "march" => true,
+        "marketing" => true,
+        "meson.build" => true,
+        "mix.exs" => true,
+        "noise" => true,
+        "overall" => true,
+        "owl" => true,
+        "package.json" => true,
+        "parade" => true,
+        "pest" => true,
+        "pom.xml" => true,
+        "produce" => true,
+        "pull" => true,
+        "reality" => true,
+        "recession" => true,
+        "redundancy" => true,
+        "restaurant" => true,
+        "section" => true,
+        "shine" => true,
+        "shorts" => true,
+        "spot" => true,
+        "spy" => true,
+        "stick" => true,
+        "talkative" => true,
+        "tidy" => true,
+        "ton" => true,
+        "trend" => true,
+        "tsconfig.json" => true,
+        "unanimous" => true,
+        "undermine" => true,
+        "webpack.config.js" => true,
+        "white" => true,
+        "whole" => true,
+        "accept" => true,
+        _   => false,
+       }
+    }
+
+
+
+    #[bench]
+    fn bench_35_words_match(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  using_match_for_lookup_35(&"foo1"); assert!(! no);
+            let no =  using_match_for_lookup_35(&"foo2"); assert!(! no);
+            let no =  using_match_for_lookup_35(&"foo3"); assert!(! no);
+            let no =  using_match_for_lookup_35(&"foo4"); assert!(! no);
+            let yes = using_match_for_lookup_35(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+    #[bench]
+    fn bench_85_words_match(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  using_match_for_lookup_85(&"foo1"); assert!(! no);
+            let no =  using_match_for_lookup_85(&"foo2"); assert!(! no);
+            let no =  using_match_for_lookup_85(&"foo3"); assert!(! no);
+            let no =  using_match_for_lookup_85(&"foo4"); assert!(! no);
+            let yes = using_match_for_lookup_85(&"tsconfig.json"); assert!(yes);
+        })
+    }
 
 
     #[bench]
