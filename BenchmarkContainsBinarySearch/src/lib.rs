@@ -2,13 +2,18 @@
 // binary_search requires a ramp up, so there will be a break-even number of words, when this ramp up is worthwile.
 
 // COLLECTED RUN TIMES
-//   test tests::bench_35_words_binary_search         ... bench:          72 ns/iter (+/- 5)
-//   test tests::bench_35_words_contains              ... bench:          69 ns/iter (+/- 27)
-//   test tests::bench_35_words_hashmap_local_mutable ... bench:          57 ns/iter (+/- 1)
-//   test tests::bench_85_words_binary_search         ... bench:          99 ns/iter (+/- 2)
-//   test tests::bench_85_words_contains              ... bench:         138 ns/iter (+/- 2)
-//   test tests::bench_85_words_hashmap_local_mutable ... bench:          57 ns/iter (+/- 4)
-//   test tests::bench_xor                            ... bench:          93 ns/iter (+/- 3)
+//   test tests::bench_35_words_binary_search         ... bench:          74 ns/iter (+/- 2)
+//   test tests::bench_35_words_contains              ... bench:          76 ns/iter (+/- 1)
+//   test tests::bench_35_words_hashmap_local_mutable ... bench:          59 ns/iter (+/- 1)
+//   test tests::bench_35_words_hashmap_static_phf    ... bench:          71 ns/iter (+/- 3)
+//   test tests::bench_35_words_static_phf_set        ... bench:          70 ns/iter (+/- 1)
+//   test tests::bench_85_words_binary_search         ... bench:          98 ns/iter (+/- 2)
+//   test tests::bench_85_words_contains              ... bench:         228 ns/iter (+/- 24)
+//   test tests::bench_85_words_hashmap_local_mutable ... bench:          59 ns/iter (+/- 1)
+//   test tests::bench_85_words_hashmap_static_phf    ... bench:          71 ns/iter (+/- 1)
+//   test tests::bench_85_words_static_phf_set        ... bench:          70 ns/iter (+/- 2)
+//   test tests::bench_xor                            ... bench:          91 ns/iter (+/- 0)
+
 
 // Renaming the functions changes the result!
 //   test tests::bench_35_words_binary_search ... bench:          25 ns/iter (+/- 0)
@@ -61,6 +66,260 @@ mod tests {
         })
     }
 
+
+
+
+
+    use phf::phf_map;
+    use phf::{phf_set, Set};
+
+    static PHF_SET_35: Set<&'static str> = phf_set! {
+        "BUILD",
+        "BUILD.bazel",
+        "Brewfile",
+        "CMakeLists.txt",
+        "Cargo.toml",
+        "Containerfile",
+        "Dockerfile",
+        "GNUmakefile",
+        "Gemfile",
+        "Gruntfile.coffee",
+        "Gruntfile.js",
+        "Justfile",
+        "Makefile",
+        "PKGBUILD",
+        "Pipfile",
+        "Podfile",
+        "Procfile",
+        "Rakefile",
+        "RoboFile.php",
+        "SConstruct",
+        "Vagrantfile",
+        "WORKSPACE",
+        "bsconfig.json",
+        "build.gradle",
+        "build.sbt",
+        "build.xml",
+        "composer.json",
+        "makefile",
+        "meson.build",
+        "mix.exs",
+        "package.json",
+        "pom.xml",
+        "tsconfig.json",
+        "webpack.config.js",
+    };
+
+    static PHF_SET_85: Set<&'static str> = phf_set! {
+        "BUILD",
+        "BUILD.bazel",
+        "Brewfile",
+        "CMakeLists.txt",
+        "Cargo.toml",
+        "Containerfile",
+        "Dockerfile",
+        "GNUmakefile",
+        "Gemfile",
+        "Gruntfile.coffee",
+        "Gruntfile.js",
+        "Justfile",
+        "Makefile",
+        "PKGBUILD",
+        "Pipfile",
+        "Podfile",
+        "Procfile",
+        "Rakefile",
+        "RoboFile.php",
+        "SConstruct",
+        "Vagrantfile",
+        "WORKSPACE",
+        "accident",
+        "bsconfig.json",
+        "build.gradle",
+        "build.sbt",
+        "build.xml",
+        "camp",
+        "clarify",
+        "command",
+        "composer.json",
+        "confront",
+        "consciousness",
+        "conversation",
+        "criticism",
+        "dedicate",
+        "disaster",
+        "drain",
+        "equip",
+        "fault",
+        "federation",
+        "feed",
+        "feminine",
+        "function",
+        "goalkeeper",
+        "house",
+        "invite",
+        "junior",
+        "linear",
+        "makefile",
+        "march",
+        "marketing",
+        "meson.build",
+        "mix.exs",
+        "noise",
+        "overall",
+        "owl",
+        "package.json",
+        "parade",
+        "pest",
+        "pom.xml",
+        "produce",
+        "pull",
+        "reality",
+        "recession",
+        "redundancy",
+        "restaurant",
+        "section",
+        "shine",
+        "shorts",
+        "spot",
+        "spy",
+        "stick",
+        "talkative",
+        "tidy",
+        "ton",
+        "trend",
+        "tsconfig.json",
+        "unanimous",
+        "undermine",
+        "webpack.config.js",
+        "white",
+        "whole",
+        "accept",
+    };
+
+    static PHF_HASH_35: phf::Map<&'static str, bool> = phf_map! {
+        "BUILD" => true,
+        "BUILD.bazel" => true,
+        "Brewfile" => true,
+        "CMakeLists.txt" => true,
+        "Cargo.toml" => true,
+        "Containerfile" => true,
+        "Dockerfile" => true,
+        "GNUmakefile" => true,
+        "Gemfile" => true,
+        "Gruntfile.coffee" => true,
+        "Gruntfile.js" => true,
+        "Justfile" => true,
+        "Makefile" => true,
+        "PKGBUILD" => true,
+        "Pipfile" => true,
+        "Podfile" => true,
+        "Procfile" => true,
+        "Rakefile" => true,
+        "RoboFile.php" => true,
+        "SConstruct" => true,
+        "Vagrantfile" => true,
+        "WORKSPACE" => true,
+        "bsconfig.json" => true,
+        "build.gradle" => true,
+        "build.sbt" => true,
+        "build.xml" => true,
+        "composer.json" => true,
+        "makefile" => true,
+        "meson.build" => true,
+        "mix.exs" => true,
+        "package.json" => true,
+        "pom.xml" => true,
+        "tsconfig.json" => true,
+        "webpack.config.js" => true,
+    };
+
+    static PHF_HASH_85: phf::Map<&'static str, bool> = phf_map! {
+        "BUILD" => true,
+        "BUILD.bazel" => true,
+        "Brewfile" => true,
+        "CMakeLists.txt" => true,
+        "Cargo.toml" => true,
+        "Containerfile" => true,
+        "Dockerfile" => true,
+        "GNUmakefile" => true,
+        "Gemfile" => true,
+        "Gruntfile.coffee" => true,
+        "Gruntfile.js" => true,
+        "Justfile" => true,
+        "Makefile" => true,
+        "PKGBUILD" => true,
+        "Pipfile" => true,
+        "Podfile" => true,
+        "Procfile" => true,
+        "Rakefile" => true,
+        "RoboFile.php" => true,
+        "SConstruct" => true,
+        "Vagrantfile" => true,
+        "WORKSPACE" => true,
+        "accident" => true,
+        "bsconfig.json" => true,
+        "build.gradle" => true,
+        "build.sbt" => true,
+        "build.xml" => true,
+        "camp" => true,
+        "clarify" => true,
+        "command" => true,
+        "composer.json" => true,
+        "confront" => true,
+        "consciousness" => true,
+        "conversation" => true,
+        "criticism" => true,
+        "dedicate" => true,
+        "disaster" => true,
+        "drain" => true,
+        "equip" => true,
+        "fault" => true,
+        "federation" => true,
+        "feed" => true,
+        "feminine" => true,
+        "function" => true,
+        "goalkeeper" => true,
+        "house" => true,
+        "invite" => true,
+        "junior" => true,
+        "linear" => true,
+        "makefile" => true,
+        "march" => true,
+        "marketing" => true,
+        "meson.build" => true,
+        "mix.exs" => true,
+        "noise" => true,
+        "overall" => true,
+        "owl" => true,
+        "package.json" => true,
+        "parade" => true,
+        "pest" => true,
+        "pom.xml" => true,
+        "produce" => true,
+        "pull" => true,
+        "reality" => true,
+        "recession" => true,
+        "redundancy" => true,
+        "restaurant" => true,
+        "section" => true,
+        "shine" => true,
+        "shorts" => true,
+        "spot" => true,
+        "spy" => true,
+        "stick" => true,
+        "talkative" => true,
+        "tidy" => true,
+        "ton" => true,
+        "trend" => true,
+        "tsconfig.json" => true,
+        "unanimous" => true,
+        "undermine" => true,
+        "webpack.config.js" => true,
+        "white" => true,
+        "whole" => true,
+        "accept" => true,
+    };
 
 
     const CHOICES35 : [&str; 34] = [
@@ -234,6 +493,30 @@ mod tests {
 
 
     #[bench]
+    fn bench_35_words_hashmap_static_phf(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  &PHF_HASH_35.contains_key(&"foo1"); assert!(! no);
+            let no =  &PHF_HASH_35.contains_key(&"foo2"); assert!(! no);
+            let no =  &PHF_HASH_35.contains_key(&"foo3"); assert!(! no);
+            let no =  &PHF_HASH_35.contains_key(&"foo4"); assert!(! no);
+            let yes = &PHF_HASH_35.contains_key(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+    #[bench]
+    fn bench_35_words_static_phf_set(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  &PHF_SET_35.contains(&"foo1"); assert!(! no);
+            let no =  &PHF_SET_35.contains(&"foo2"); assert!(! no);
+            let no =  &PHF_SET_35.contains(&"foo3"); assert!(! no);
+            let no =  &PHF_SET_35.contains(&"foo4"); assert!(! no);
+            let yes = &PHF_SET_35.contains(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+    #[bench]
     fn bench_85_words_contains(b: &mut Bencher) {
 
         b.iter(|| {
@@ -274,4 +557,31 @@ mod tests {
             let yes = &choiceshash.contains_key(&"tsconfig.json"); assert!(yes);
         })
     }
+
+
+    #[bench]
+    fn bench_85_words_hashmap_static_phf(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  &PHF_HASH_85.contains_key(&"foo1"); assert!(! no);
+            let no =  &PHF_HASH_85.contains_key(&"foo2"); assert!(! no);
+            let no =  &PHF_HASH_85.contains_key(&"foo3"); assert!(! no);
+            let no =  &PHF_HASH_85.contains_key(&"foo4"); assert!(! no);
+            let yes = &PHF_HASH_85.contains_key(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+    #[bench]
+    fn bench_85_words_static_phf_set(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  &PHF_SET_85.contains(&"foo1"); assert!(! no);
+            let no =  &PHF_SET_85.contains(&"foo2"); assert!(! no);
+            let no =  &PHF_SET_85.contains(&"foo3"); assert!(! no);
+            let no =  &PHF_SET_85.contains(&"foo4"); assert!(! no);
+            let yes = &PHF_SET_85.contains(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+
 }
