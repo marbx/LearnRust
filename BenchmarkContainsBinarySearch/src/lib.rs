@@ -2,11 +2,13 @@
 // binary_search requires a ramp up, so there will be a break-even number of words, when this ramp up is worthwile.
 
 // COLLECTED RUN TIMES
-//   test tests::bench_35_words_binary_search ... bench:          72 ns/iter (+/- 1)
-//   test tests::bench_35_words_contains      ... bench:          78 ns/iter (+/- 8)
-//   test tests::bench_85_words_binary_search ... bench:          99 ns/iter (+/- 2)
-//   test tests::bench_85_words_contains      ... bench:         138 ns/iter (+/- 1)
-//   test tests::bench_xor                    ... bench:          92 ns/iter (+/- 2)
+//   test tests::bench_35_words_binary_search         ... bench:          72 ns/iter (+/- 5)
+//   test tests::bench_35_words_contains              ... bench:          69 ns/iter (+/- 27)
+//   test tests::bench_35_words_hashmap_local_mutable ... bench:          57 ns/iter (+/- 1)
+//   test tests::bench_85_words_binary_search         ... bench:          99 ns/iter (+/- 2)
+//   test tests::bench_85_words_contains              ... bench:         138 ns/iter (+/- 2)
+//   test tests::bench_85_words_hashmap_local_mutable ... bench:          57 ns/iter (+/- 4)
+//   test tests::bench_xor                            ... bench:          93 ns/iter (+/- 3)
 
 // Renaming the functions changes the result!
 //   test tests::bench_35_words_binary_search ... bench:          25 ns/iter (+/- 0)
@@ -38,6 +40,7 @@
 
 // FOUND AT
 //   https://doc.rust-lang.org/nightly/unstable-book/library-features/test.html
+//   https://doc.rust-lang.org/rust-by-example/std/hash.html
 
 
 
@@ -213,6 +216,24 @@ mod tests {
 
 
     #[bench]
+    fn bench_35_words_hashmap_local_mutable(b: &mut Bencher) {
+        use std::collections::HashMap;
+        let mut choiceshash = HashMap::new();
+        for val in &CHOICES35 {
+            choiceshash.insert(val, 1);
+        }
+
+        b.iter(|| {
+            let no =  &choiceshash.contains_key(&"foo1"); assert!(! no);
+            let no =  &choiceshash.contains_key(&"foo2"); assert!(! no);
+            let no =  &choiceshash.contains_key(&"foo3"); assert!(! no);
+            let no =  &choiceshash.contains_key(&"foo4"); assert!(! no);
+            let yes = &choiceshash.contains_key(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+    #[bench]
     fn bench_85_words_contains(b: &mut Bencher) {
 
         b.iter(|| {
@@ -236,4 +257,21 @@ mod tests {
         })
     }
 
+
+    #[bench]
+    fn bench_85_words_hashmap_local_mutable(b: &mut Bencher) {
+        use std::collections::HashMap;
+        let mut choiceshash = HashMap::new();
+        for val in &CHOICES85 {
+            choiceshash.insert(val, 1);
+        }
+
+        b.iter(|| {
+            let no =  &choiceshash.contains_key(&"foo1"); assert!(! no);
+            let no =  &choiceshash.contains_key(&"foo2"); assert!(! no);
+            let no =  &choiceshash.contains_key(&"foo3"); assert!(! no);
+            let no =  &choiceshash.contains_key(&"foo4"); assert!(! no);
+            let yes = &choiceshash.contains_key(&"tsconfig.json"); assert!(yes);
+        })
+    }
 }
