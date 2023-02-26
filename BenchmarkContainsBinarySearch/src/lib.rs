@@ -2,15 +2,19 @@
 // binary_search requires a ramp up, so there will be a break-even number of words, when this ramp up is worthwile.
 
 // COLLECTED RUN TIMES
-//   test tests::bench_35_words_binary_search         ... bench:          74 ns/iter (+/- 2)
-//   test tests::bench_35_words_contains              ... bench:          76 ns/iter (+/- 1)
-//   test tests::bench_35_words_hashmap_local_mutable ... bench:          59 ns/iter (+/- 1)
-//   test tests::bench_35_words_hashmap_static_phf    ... bench:          71 ns/iter (+/- 3)
-//   test tests::bench_35_words_static_phf_set        ... bench:          70 ns/iter (+/- 1)
-//   test tests::bench_85_words_binary_search         ... bench:          98 ns/iter (+/- 2)
-//   test tests::bench_85_words_contains              ... bench:         228 ns/iter (+/- 24)
-//   test tests::bench_85_words_hashmap_local_mutable ... bench:          59 ns/iter (+/- 1)
-//   test tests::bench_85_words_hashmap_static_phf    ... bench:          71 ns/iter (+/- 1)
+//   test tests::bench_35_words_binary_search         ... bench:          73 ns/iter (+/- 3)
+//   test tests::bench_35_words_contains              ... bench:          94 ns/iter (+/- 10)
+//   test tests::bench_35_words_hashmap_local_mutable ... bench:          60 ns/iter (+/- 3)
+//   test tests::bench_35_words_hashmap_static_phf    ... bench:          70 ns/iter (+/- 2)
+//   test tests::bench_35_words_lazy_hashset_1        ... bench:          60 ns/iter (+/- 4)
+//   test tests::bench_35_words_lazy_hashset_2        ... bench:          60 ns/iter (+/- 1)
+//   test tests::bench_35_words_static_phf_set        ... bench:          70 ns/iter (+/- 3)
+//   test tests::bench_85_words_binary_search         ... bench:          99 ns/iter (+/- 3)
+//   test tests::bench_85_words_contains              ... bench:         138 ns/iter (+/- 4)
+//   test tests::bench_85_words_hashmap_local_mutable ... bench:          58 ns/iter (+/- 3)
+//   test tests::bench_85_words_hashmap_static_phf    ... bench:          70 ns/iter (+/- 1)
+//   test tests::bench_85_words_lazy_hashset_1        ... bench:          59 ns/iter (+/- 2)
+//   test tests::bench_85_words_lazy_hashset_2        ... bench:          59 ns/iter (+/- 3)
 //   test tests::bench_85_words_static_phf_set        ... bench:          70 ns/iter (+/- 2)
 //   test tests::bench_xor                            ... bench:          91 ns/iter (+/- 0)
 
@@ -67,7 +71,20 @@ mod tests {
     }
 
 
-
+    use lazy_static::lazy_static;
+    use std::collections::HashSet;
+    lazy_static! {
+        static ref LAZY_CHOICES_35: HashSet<&'static str> = initialize_data_35();
+        static ref LAZY_CHOICES_85: HashSet<&'static str> = initialize_data_85();
+    }
+    fn initialize_data_35() -> HashSet<&'static str> {
+        let set:HashSet<&'static str> = CHOICES35.into_iter().collect();
+        set
+    }
+    fn initialize_data_85() -> HashSet<&'static str> {
+        let set:HashSet<&'static str> = CHOICES85.into_iter().collect();
+        set
+    }
 
 
     use phf::phf_map;
@@ -515,6 +532,54 @@ mod tests {
         })
     }
 
+
+    #[bench]
+    fn bench_35_words_lazy_hashset_1(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  &LAZY_CHOICES_35.contains(&"foo1"); assert!(! no);
+            let no =  &LAZY_CHOICES_35.contains(&"foo2"); assert!(! no);
+            let no =  &LAZY_CHOICES_35.contains(&"foo3"); assert!(! no);
+            let no =  &LAZY_CHOICES_35.contains(&"foo4"); assert!(! no);
+            let yes = &LAZY_CHOICES_35.contains(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+    #[bench]
+    fn bench_35_words_lazy_hashset_2(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  &LAZY_CHOICES_35.contains(&"foo1"); assert!(! no);
+            let no =  &LAZY_CHOICES_35.contains(&"foo2"); assert!(! no);
+            let no =  &LAZY_CHOICES_35.contains(&"foo3"); assert!(! no);
+            let no =  &LAZY_CHOICES_35.contains(&"foo4"); assert!(! no);
+            let yes = &LAZY_CHOICES_35.contains(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+
+    #[bench]
+    fn bench_85_words_lazy_hashset_1(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  &LAZY_CHOICES_85.contains(&"foo1"); assert!(! no);
+            let no =  &LAZY_CHOICES_85.contains(&"foo2"); assert!(! no);
+            let no =  &LAZY_CHOICES_85.contains(&"foo3"); assert!(! no);
+            let no =  &LAZY_CHOICES_85.contains(&"foo4"); assert!(! no);
+            let yes = &LAZY_CHOICES_85.contains(&"tsconfig.json"); assert!(yes);
+        })
+    }
+
+
+    #[bench]
+    fn bench_85_words_lazy_hashset_2(b: &mut Bencher) {
+        b.iter(|| {
+            let no =  &LAZY_CHOICES_85.contains(&"foo1"); assert!(! no);
+            let no =  &LAZY_CHOICES_85.contains(&"foo2"); assert!(! no);
+            let no =  &LAZY_CHOICES_85.contains(&"foo3"); assert!(! no);
+            let no =  &LAZY_CHOICES_85.contains(&"foo4"); assert!(! no);
+            let yes = &LAZY_CHOICES_85.contains(&"tsconfig.json"); assert!(yes);
+        })
+    }
 
     #[bench]
     fn bench_85_words_contains(b: &mut Bencher) {

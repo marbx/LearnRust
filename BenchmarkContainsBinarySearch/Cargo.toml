@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 phf = { version = "*", features = ["macros"] }
+lazy_static  = { version = "*" }
+to_vec  = { version = "*" }
